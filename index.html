@@ -1,88 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Curtain Call Syndicate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #0a0a0d;
+      --panel: #121216;
+      --gold: #c6a15b;
+      --accent: #c6a15b;
+      --red: #2a0b0f;
+      --text: #f2f2f3;
+      --muted: #9a9aa0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Georgia, serif;
-      background-color: #0b0b0b;
-      color: #f5f5f5;
-      text-align: center;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(42,11,15,0.35), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    header {
-      padding: 60px 20px 40px;
-    }
-
-    header img {
-      max-width: 300px;
-      width: 80%;
-    }
-
-    section {
-      padding: 50px 20px;
-    }
-
-    h2 {
-      font-weight: normal;
-      letter-spacing: 2px;
-      margin-bottom: 30px;
-    }
-
-    .shows {
+    /* ---------- NAV ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.4rem 6%;
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,13,0.65);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.25em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-left: 2.2rem;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    /* ---------- HERO ---------- */
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 30px;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    /* CINEMATIC HERO — CURTAIN CALL */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(circle at bottom, rgba(120,20,20,0.45), #050507 65%);
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, #3b0d12, #6b1418, #3b0d12);
+  box-shadow: inset -20px 0 40px rgba(0,0,0,0.6);
+  opacity: 0.9;
+}
+
+.curtain.left { left: 0; }
+.curtain.right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.logo-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.5rem, 8vw, 6.5rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f2dfb6;
+  text-shadow:
+    0 10px 40px rgba(0,0,0,0.85),
+    0 0 35px rgba(199,162,74,0.4);
+}
+
+.logo-heading span {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.9em;
+  letter-spacing: 0.32em;
+  color: var(--accent);
+}
+
+.est {
+  margin-top: 1.8rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+    header .divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.4rem auto;
+    }
+
+    header p {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      padding: 7rem 10%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4rem;
+    }
+
+    /* ---------- SHOWS ---------- */
+    .shows {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 5rem;
     }
 
     .show {
-      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
     }
 
     .show img {
       width: 100%;
-      border-radius: 6px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      border-radius: 14px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.8);
     }
 
+    .show h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+    }
+
+    .show p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 420px;
+    }
+
+    .meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .button {
+      margin-top: 0.6rem;
+      align-self: flex-start;
+      padding: 0.7rem 2.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .about strong {
+      color: var(--text);
+    }
+
+    /* ---------- DIRECTORS ---------- */
+    .directors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 3.5rem;
+      margin-top: 4rem;
+    }
+
+    .director h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.6rem;
+    }
+
+    .director p { color: var(--muted); font-size: 0.9rem; }
+
     footer {
-      padding: 40px 20px;
-      font-size: 14px;
-      opacity: 0.7;
+      text-align: center;
+      padding: 4rem 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      section { padding: 5rem 7%; }
+      nav a { margin-left: 1.4rem; }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Curtain Call Syndicate</h1>
-    <p>Official website</p>
-  </header>
+  <nav>
+    <div class="logo">Curtain Call Syndicate</div>
+    <div>
+      <a href="#shows">Shows</a>
+      <a href="#about">About</a>
+      <a href="#members">Membership</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-  <section>
-    <h2>Current Productions</h2>
+  <header class="hero">
+  <div class="curtain left"></div>
+  <div class="curtain right"></div>
+  <div class="hero-inner">
+    <h1 class="logo-heading">Curtain Call<br><span>Syndicate</span></h1>
+    <div class="est">EST 2025</div>
+  </div>
+</header>
 
+  <section id="shows">
+    <h2 class="section-title">Current Productions</h2>
     <div class="shows">
+
       <div class="show">
-        <img src="IMG_0046.jpeg" alt="Pocahontas">
-        <p>Pocahontas</p>
+        <img src="IMG_0046.jpeg" alt="Pocahontas poster">
+        <h3>Pocahontas</h3>
+        <p>A reimagined stage production exploring identity, conflict, and connection through bold performance and visual storytelling.</p>
+        <p class="meta">Dates unconfirmed · Theatre</p>
+        <a href="https://forms.gle/aV2feKzucjYPDiFF9" class="button">Reserve Tickets</a>
       </div>
 
       <div class="show">
-        <img src="IMG_0043.jpeg" alt="New Year, New Me">
-        <p>New Year, New Me</p>
+        <img src="IMG_0043.jpeg" alt="New Year, New Me poster">
+        <h3>New Year, New Me</h3>
+        <p>A contemporary musical examining reinvention, ambition, and the masks we choose to wear.</p>
+        <p class="meta">Dates unconfirmed · Musical Theatre</p>
+        <a href="https://forms.gle/aV2feKzucjYPDiFF9" class="button">Reserve Tickets</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About</h2>
+    <p class="about"><strong>Curtain Call Syndicate</strong> is an independent theatre company founded in 2025. We create ambitious, performance-led work with a cinematic sensibility, treating each production as a singular event.<br><br><em>Dream Big. Go Big.</em></p>
+
+    <div class="directors">
+      <div class="director">
+        <h3>Ellis Weckner Bradley</h3>
+        <p>Co-director, shaping bold narratives and immersive stage worlds.</p>
+      </div>
+      <div class="director">
+        <h3>Euan Ramage</h3>
+        <p>Co-director, focused on atmosphere, performance, and theatrical precision.</p>
       </div>
     </div>
   </section>
 
-  <footer>
-    © Curtain Call Syndicate
+  <section id="members">
+    <h2 class="section-title">Membership</h2>
+    <p class="about">Become a supporting member of Curtain Call Syndicate and receive early access to reservations, behind-the-scenes updates, and priority booking for future productions.</p>
+  </section>
+
+  <footer id="contact">
+    © 2026 Curtain Call Syndicate
   </footer>
 
 </body>
